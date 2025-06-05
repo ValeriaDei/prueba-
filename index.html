@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>mac álgebra</title>
+
+  <!-- jQuery y turn.js -->
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="../../turn.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages/chapter1.css">
+  <script src="interactividad.js"></script>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- Prism CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Latin+Modern+Math&display=swap');
+
+    body {
+      background: #ccc;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #magazine {
+      width: 1152px;
+      height: 752px;
+    }
+
+    #magazine .turn-page {
+      background-color: white !important;
+      padding: 40px;
+      font-size: 12px;
+      line-height: 1.4; 
+      color: #000;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 0;
+    }
+
+  </style>
+  
+</head>
+<!-- Prism JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="main.js"></script>
+
+<body>
+
+<div id="magazine">
+</div>
+
+<audio id="flip-sound" src="page-flip3.mp3" preload="auto"></audio>
+<script>
+$(window).ready(function () {
+  const flipSound = document.getElementById('flip-sound');
+  const magazineContainer = $('#magazine');
+
+  // 🟢 Lista de páginas a cargar
+  const capitulos = [
+    'pages/page1.html',
+    // 'pages/page2.html',
+    // Agrega más páginas si lo necesitas
+  ];
+
+  // 🔁 Función para cargar capítulos
+  function cargarCapitulos(listaCapitulos) {
+    // Destruye y limpia si ya hay algo cargado
+    if (magazineContainer.data('turn')) {
+      magazineContainer.turn('destroy');
+    }
+    magazineContainer.empty();
+
+    let cargadas = 0;
+
+    listaCapitulos.forEach(function (archivo) {
+      $.get(archivo, function (data) {
+        const tempDiv = $('<div></div>').html(data);
+
+        // Solo agrega las páginas que tengan la clase .turn-page
+        tempDiv.find('.turn-page').appendTo(magazineContainer);
+        cargadas++;
+
+        // Cuando estén todas cargadas, inicia Turn.js
+        if (cargadas === listaCapitulos.length) {
+          magazineContainer.turn({
+            width: 1152,
+            height: 752,
+            display: 'double',
+            acceleration: true,
+            gradients: true,
+            elevation: 100,
+            duration: 300,
+            when: {
+              turning: function () {
+                flipSound.currentTime = 0;
+                flipSound.play();
+              }
+            }
+          });
+
+          MathJax.typeset();
+
+          // Teclado: izquierda y derecha para pasar páginas
+          $(window).on('keydown', function (e) {
+            if (e.keyCode === 37) magazineContainer.turn('previous');
+            else if (e.keyCode === 39) magazineContainer.turn('next');
+          });
+        }
+      });
+    });
+  }
+
+  // 📘 Función para ir a una sección por ID
+  window.irASeccion = function(id) {
+    // Espera un poco para asegurarse que se haya cargado todo
+    setTimeout(() => {
+      const $elemento = $('#' + id);
+      if ($elemento.length) {
+        const $pagina = $elemento.closest('.turn-page');
+        const numeroPagina = $('#magazine .turn-page').index($pagina) + 1;
+
+        if (numeroPagina > 0) {
+          $('#magazine').turn('page', numeroPagina);
+        }
+      } else {
+        console.warn('No se encontró el ID:', id);
+      }
+    }, 300);
+  };
+  // 🚀 Llamar la función para cargar las páginas
+  cargarCapitulos(capitulos);
+});
+console.log('¿irASeccion existe?', typeof irASeccion);
+
+</script>
+
+</body>
+</html>
