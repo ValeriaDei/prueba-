@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capítulo 1</title>
+  <link rel="stylesheet" href="chapter1.css">
+</head>
+<body>
+<div class="turn-page">portada
+   <a href="#" onclick="$('#magazine').turn('page', 4)">Ir a página 4</a>
+</div>
+
+<div class="turn-page">
+  <div class="contents">
+    <h1 class = "title-contents">Contents</h1>
+    <ol>
+     <li><a class="subtitles" href="javascript:void(0)" onclick="irASeccion('chapter_one')">Sets</a></li>
+          <ul type= "none">
+            <li><a class="subtitles" href="javascript:void(0)" onclick="irASeccion('definition_set')">1.1 What is a set?</a></li>
+            <li><a class="subtitles" href="javascript:void(0)" onclick="irASeccion('ways_sets')">1.2 Ways to represent a set</a></li>
+            <ul>
+              <li type="none"><a class="subtitles" href ="javascript:void(0)" onclick="irASeccion('def_builder')">1.2.1 Set buider notation</a></li>
+            </ul>
+          </ul>
+     </li>
+    </ol>
+  </div>
+</div>
+<div class="turn-page">lo que sea</div>
+<div class="turn-page">
+
+  <h1 class = "chapter_n" id="chapter_one"><i class="fa-solid fa-calculator" style="color: #FFD43B;"></i> Chapter 1: Sets</h1>
+  <p class="intro"> In this first chapter, we will learn about <em class = key_Words>sets</em> and how to represent them, what types of set are there, their properties, and the operations we can perform on them. 
+    To better understand and apply these ideas, we'll explore how to implement these concepts in Python to reinforce them. 
+    This section is particularly important, as it will be used in the following chapters.
+  </p>
+  <h2 id="definition_set">1.1 What is a set?</h2>
+    <p class="intro">A set is a collection of objects in common, each object is called element of the set.
+    The <em class="key_Words">sets</em> are represented by capital letters and the elements are into curly braces <em class = "key_Words">{}</em>, let's look at an examples: </p>
+    <div id="example_set" class="tcolorbox examples">
+      <div class="tcolorbox-title">
+        <i id="icon-light" class="fa-regular fa-lightbulb"></i>
+        <span>Example</span>
+      </div>
+      <div class="tcolorbox-text">
+        <p>Let \(A,B,C\) be the following sets:</p>
+        <p>\[\textbf{A}= \{2,4,6,8\}\]</p>
+        <p>\[\textbf{B}= \{♣,♦,♥,♠\}\]</p>
+        <p>\[\textbf{C}= \{⚀,⚁,⚂,⚃,⚄,⚅\}\]</p>
+      </div>
+    </div>
+    <h2 id="ways_sets">1.2 Ways to represent sets</h2>
+    <p>There is almost 3 ways to represent a set, in the first place exits the $\textbf{text builder notation}$</p>
+    <h3 id="def_builder">1.2 Set builder notation</h2>
+    <p>
+      Set builder notation is a way to represent sets specifying a property that all elements of the set should satisfy
+    </p>
+
+
+
+
+  <button onclick="hideElement('factorial')">Esconder factorial</button>
+  <button onclick="showElement('factorial')">mostrar factorial</button>
+  <div id = "factorial" style= "display:none;"class="tcolorbox examples">
+   <div class = "tcolorbox-title">
+      <i id="icon-light" class="fa-regular fa-lightbulb"></i>
+      <span>what's a factorial?</span>
+   </div>
+   <div class = "tcolorbox-text">
+       <p>
+      We can calculate the factorial of a number multiplying all the positive integers
+      number between the number and 1.
+       </p>
+   </div>
+  </div>
+  <a href = https://google.com>ir a google</a>
+  <button onclick="saludar()">salúdame</button>
+  <button onclick="cambiarColor()">change color</button> 
+
+
+
+
+
+</div>
+
+<div class="turn-page">
+  <p>¿Por qué no sale lo que escribí?</p>
+</div>
+
+<div class="turn-page">Página 3 del capítulo 1</div>
+<div class="turn-page">Página 4 del capítulo 1</div>
+<div class="turn-page">Página 5 del capítulo 1</div>
+<div class="turn-page">Página 6 del capítulo 1</div>
+<div class="turn-page">Página 7 del capítulo 1</div>
+<div class="turn-page">Página 8 del capítulo 1</div>
+
+</body>
+</html>
